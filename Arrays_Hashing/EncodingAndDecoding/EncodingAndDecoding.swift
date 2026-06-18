@@ -49,3 +49,33 @@ class Codec {
  * val s = obj.encode(strs)
  * let ans = obj.decode(s)
 */
+
+
+func decode(_ s: String) -> [String] {
+    let chars = Array(s)
+    var num = ""
+    var word = ""
+    var decoded = [String]()
+    var i = 0
+
+    while i < chars.count {
+        if chars[i] != "#" {
+            num += String(chars[i])
+            i += 1
+        } else {
+            i += 1 // skip '#'
+            if let count = Int(num) {
+                var remaining = count
+                while remaining > 0 {
+                    word += String(chars[i])
+                    i += 1
+                    remaining -= 1
+                }
+                decoded.append(word)
+            }
+            num = ""
+            word = ""
+        }
+    }
+    return decoded
+}

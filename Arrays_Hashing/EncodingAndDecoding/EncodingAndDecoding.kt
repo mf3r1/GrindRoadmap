@@ -32,3 +32,32 @@ class Codec {
  * val s = obj.encode(strs)
  * val ans = obj.decode(s)
  */
+
+
+fun decode(s: String): List<String> {
+    val chars = s.toCharArray()
+    val result = mutableListOf<String>()
+    var num = ""
+    var word = ""
+    var i = 0
+
+    while (i < chars.size) {
+        if (chars[i] != '#') {
+            num += chars[i]
+            i++
+        } else {
+            i++ // skip '#'
+            val count = num.toInt()
+            var remaining = count
+            while (remaining > 0) {
+                word += chars[i]
+                i++
+                remaining--
+            }
+            result.add(word)
+            num = ""
+            word = ""
+        }
+    }
+    return result
+}
